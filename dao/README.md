@@ -24,16 +24,16 @@ dao\src\main\java\org\thingsboard\server\dao\model\nosql\AlarmEntity.java
 public final class AlarmEntity implements BaseEntity<Alarm> {
 
     private UUID id;
-    private UUID tenantId;
+    private UUID tenantId;              // 租户id
     private UUID originatorId;          // 来源者id
     private EntityType originatorType;  // 来源者类型
-    private String type;
-    private AlarmSeverity severity;
-    private AlarmStatus status;
-    private Long startTs;               // 开始时间戳
-    private Long endTs;                 // 结束时间戳
-    private Long ackTs;
-    private Long clearTs;               // 清除时间戳
+    private String type;                // 警报类型
+    private AlarmSeverity severity;     //
+    private AlarmStatus status;         // 警报状态
+    private Long startTs;               // 开始时间
+    private Long endTs;                 // 结束时间
+    private Long ackTs;                 // 回复时间
+    private Long clearTs;               // 清除时间
     private JsonNode details;           // 详情
     private Boolean propagate;          // 传送
     // ...
@@ -49,12 +49,12 @@ dao\src\main\java\org\thingsboard\server\dao\model\nosql\AssetEntity.java
 public final class AssetEntity implements SearchTextEntity<Asset> {
 
     private UUID id;
-    private UUID tenantId;
-    private UUID customerId;
+    private UUID tenantId;              // 租户id
+    private UUID customerId;            // 客户id
     private String type;
-    private String name;
+    private String name;                // 资产名称
     private String searchText;
-    private JsonNode additionalInfo;
+    private JsonNode additionalInfo;    // 额外的信息
     // ...
 }
 ```
@@ -68,17 +68,17 @@ dao\src\main\java\org\thingsboard\server\dao\model\nosql\AuditLogEntity.java
 public class AuditLogEntity implements BaseEntity<AuditLog> {
 
     private UUID id;
-    private UUID tenantId;
-    private UUID customerId;
-    private EntityType entityType;  // 实体类型
-    private UUID entityId;
-    private String entityName;      // 实体名称
-    private UUID userId;
-    private String userName;
-    private ActionType actionType;
-    private JsonNode actionData;
-    private ActionStatus actionStatus;
-    private String actionFailureDetails;
+    private UUID tenantId;                  // 租户id
+    private UUID customerId;                // 客户id
+    private EntityType entityType;          // 实体类型
+    private UUID entityId;                  // 实体id
+    private String entityName;              // 实体名称
+    private UUID userId;                    // 绑定的用户
+    private String userName;                // 用户名
+    private ActionType actionType;          // 操作类型
+    private JsonNode actionData;            // 操作数据
+    private ActionStatus actionStatus;      // 操作状态
+    private String actionFailureDetails;    // 操作失败详情
     // ...
 }
 ```
@@ -95,7 +95,7 @@ public final class CustomerEntity implements SearchTextEntity<Customer> {
 
     private UUID id;
     private UUID tenantId;              // 租户id，所属租户？
-    private String title;
+    private String title;               // 名字
     private String searchText;
     private String country;             // 国家
     private String state;               // 状态
@@ -122,11 +122,11 @@ public final class DashboardEntity implements SearchTextEntity<Dashboard> {
     private static final JavaType assignedCustomersType =
             objectMapper.getTypeFactory().constructCollectionType(HashSet.class, ShortCustomerInfo.class);
     private UUID id;
-    private UUID tenantId;
-    private String title;
+    private UUID tenantId;              // 租户id
+    private String title;               // 名称
     private String searchText;
     private String assignedCustomers;
-    private JsonNode configuration;
+    private JsonNode configuration;     // 配置
     // ...
 }
 ```
@@ -145,7 +145,7 @@ public class DashboardInfoEntity implements SearchTextEntity<DashboardInfo> {
             objectMapper.getTypeFactory().constructCollectionType(HashSet.class, ShortCustomerInfo.class);
     private UUID id;
     private UUID tenantId;
-    private String title;
+    private String title;               // dashboard info 名称
     private String searchText;
     private String assignedCustomers;
     // ...
@@ -161,10 +161,10 @@ dao\src\main\java\org\thingsboard\server\dao\model\nosql\DeviceCredentialsEntity
 public final class DeviceCredentialsEntity implements BaseEntity<DeviceCredentials> {
 
     private UUID id;
-    private UUID deviceId;
-    private DeviceCredentialsType credentialsType;
-    private String credentialsId;
-    private String credentialsValue;
+    private UUID deviceId;                          // 设备id
+    private DeviceCredentialsType credentialsType;  // 证书类型
+    private String credentialsId;                   // 证书id
+    private String credentialsValue;                // 证书数值
     // ...
 }
 ```
@@ -180,8 +180,8 @@ public final class DeviceEntity implements SearchTextEntity<Device> {
     private UUID id;
     private UUID tenantId;          // 关联租户
     private UUID customerId;        // 关联客户
-    private String type;
-    private String name;
+    private String type;            // 设备类型
+    private String name;            // 设备名称
     private String searchText;
     private JsonNode additionalInfo; // 额外的信息
     // ...
@@ -197,17 +197,17 @@ dao\src\main\java\org\thingsboard\server\dao\model\nosql\EntityViewEntity.java
 public class EntityViewEntity implements SearchTextEntity<EntityView> {
 
     private UUID id;
-    private UUID tenantId;
-    private UUID customerId;
-    private String type;
-    private EntityType entityType;
-    private UUID entityId;
+    private UUID tenantId;              // 租户id
+    private UUID customerId;            // 客户id
+    private String type;                // Entity View 类型
+    private EntityType entityType;      // 实体类型
+    private UUID entityId;              // 实体id
     private String name;
     private String keys;
-    private long startTs;
-    private long endTs;
+    private long startTs;               // 开始时间
+    private long endTs;                 // 结束时间
     private String searchText;
-    private JsonNode additionalInfo;
+    private JsonNode additionalInfo;    // 额外的信息
     // ...
 }
 ```
@@ -221,11 +221,11 @@ dao\src\main\java\org\thingsboard\server\dao\model\nosql\RuleChainEntity.java
 public class RuleChainEntity implements SearchTextEntity<RuleChain> {
 
     private UUID id;
-    private UUID tenantId;
+    private UUID tenantId;              // 租户id
     private String name;
     private String searchText;
-    private UUID firstRuleNodeId;
-    private boolean root;
+    private UUID firstRuleNodeId;       // 第一个rule节点id
+    private boolean root;               // 是否为root
     private boolean debugMode;
     private JsonNode configuration;     // 配置
     private JsonNode additionalInfo;    // 额外信息
@@ -244,10 +244,10 @@ public class RuleNodeEntity implements SearchTextEntity<RuleNode> {
 
     private UUID id;
     private UUID ruleChainId;
-    private String type;
-    private String name;
+    private String type;                // rule node 类型
+    private String name;                // 名称
     private String searchText;
-    private JsonNode configuration;
+    private JsonNode configuration;     // 配置
     private JsonNode additionalInfo;
     private boolean debugMode;
     // ...
@@ -290,9 +290,9 @@ public final class UserCredentialsEntity implements BaseEntity<UserCredentials> 
     private UUID id;
     private UUID userId;
     private boolean enabled;
-    private String password;
-    private String activateToken;
-    private String resetToken;
+    private String password;        // 证书密码
+    private String activateToken;   // 激活token
+    private String resetToken;      // 重置token
     // ...
 }
 ```
@@ -311,9 +311,9 @@ public final class UserEntity implements SearchTextEntity<User> {
     private Authority authority;
     private String email;
     private String searchText;
-    private String firstName;
-    private String lastName;
-    private JsonNode additionalInfo; // 额外的信息
+    private String firstName;           // 名
+    private String lastName;            // 姓
+    private JsonNode additionalInfo;    // 额外的信息
     // ...
 }
 ```
@@ -328,9 +328,9 @@ public class EventEntity implements BaseEntity<Event> {
 
     private UUID id;
     private UUID tenantId;
-    private EntityType entityType;
-    private UUID entityId;
-    private String eventType;
+    private EntityType entityType;  // 实体类型
+    private UUID entityId;          // 实体id
+    private String eventType;       // 事件类型
     private String eventUid;
     private JsonNode body;
     // ...
