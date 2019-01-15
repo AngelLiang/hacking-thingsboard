@@ -339,4 +339,36 @@ public class EventEntity implements BaseEntity<Event> {
 
 ## widgets bundle model
 
+dao\src\main\java\org\thingsboard\server\dao\model\nosql\WidgetsBundleEntity.java
+
+```java
+// ...
+public final class WidgetsBundleEntity implements SearchTextEntity<WidgetsBundle> {
+
+    private UUID id;
+    private UUID tenantId;      // 租户id
+    private String alias;       // 别名
+    private String title;       // 名称
+    private String searchText;
+    private ByteBuffer image;   // 图片
+    // ...
+}
+```
+
 ## widget type model
+
+dao\src\main\java\org\thingsboard\server\dao\model\nosql\WidgetTypeEntity.java
+
+```java
+// ...
+public final class WidgetTypeEntity implements BaseEntity<WidgetType> {
+
+    private UUID id;
+    private UUID tenantId;          // 租户id
+    private String bundleAlias;     // bundle别名
+    private String alias;
+    private String name;            // 名称
+    private JsonNode descriptor;    // 描述符
+    // ...
+}
+```
