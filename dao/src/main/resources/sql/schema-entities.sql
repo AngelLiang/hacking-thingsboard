@@ -17,7 +17,7 @@
 
 CREATE TABLE IF NOT EXISTS admin_settings (
     id varchar(31) NOT NULL CONSTRAINT admin_settings_pkey PRIMARY KEY,
-    json_value varchar,
+    json_value varchar,         -- json格式
     key varchar(255)
 );
 
@@ -25,7 +25,7 @@ CREATE TABLE IF NOT EXISTS alarm (
     id varchar(31) NOT NULL CONSTRAINT alarm_pkey PRIMARY KEY,
     ack_ts bigint,
     clear_ts bigint,
-    additional_info varchar,
+    additional_info varchar,    -- 存储额外信息，json格式
     end_ts bigint,
     originator_id varchar(31),
     originator_type integer,
@@ -37,9 +37,10 @@ CREATE TABLE IF NOT EXISTS alarm (
     type varchar(255)
 );
 
+-- 资产
 CREATE TABLE IF NOT EXISTS asset (
     id varchar(31) NOT NULL CONSTRAINT asset_pkey PRIMARY KEY,
-    additional_info varchar,
+    additional_info varchar,    -- 存储额外信息，json格式
     customer_id varchar(31),
     name varchar(255),
     search_text varchar(255),
@@ -47,6 +48,7 @@ CREATE TABLE IF NOT EXISTS asset (
     type varchar(255)
 );
 
+-- 审计日志
 CREATE TABLE IF NOT EXISTS audit_log (
     id varchar(31) NOT NULL CONSTRAINT audit_log_pkey PRIMARY KEY,
     tenant_id varchar(31),
@@ -57,21 +59,22 @@ CREATE TABLE IF NOT EXISTS audit_log (
     user_id varchar(31),
     user_name varchar(255),
     action_type varchar(255),
-    action_data varchar(1000000),
+    action_data varchar(1000000),   -- json格式
     action_status varchar(255),
     action_failure_details varchar(1000000)
 );
 
+-- 属性键值对
 CREATE TABLE IF NOT EXISTS attribute_kv (
-  entity_type varchar(255),
-  entity_id varchar(31),
-  attribute_type varchar(255),
-  attribute_key varchar(255),
-  bool_v boolean,
-  str_v varchar(10000000),
-  long_v bigint,
+  entity_type varchar(255),     -- 实体类型
+  entity_id varchar(31),        -- 实体id
+  attribute_type varchar(255),  -- 属性类型
+  attribute_key varchar(255),   -- 属性键名
+  bool_v boolean,               -- bool数值
+  str_v varchar(10000000),      -- 字符串数值
+  long_v bigint,                -- 长整型数据
   dbl_v double precision,
-  last_update_ts bigint,
+  last_update_ts bigint,        -- 最后更新时间
   CONSTRAINT attribute_kv_unq_key UNIQUE (entity_type, entity_id, attribute_type, attribute_key)
 );
 
@@ -86,6 +89,7 @@ CREATE TABLE IF NOT EXISTS component_descriptor (
     type varchar(255)
 );
 
+-- 客户
 CREATE TABLE IF NOT EXISTS customer (
     id varchar(31) NOT NULL CONSTRAINT customer_pkey PRIMARY KEY,
     additional_info varchar,
@@ -102,6 +106,7 @@ CREATE TABLE IF NOT EXISTS customer (
     zip varchar(255)
 );
 
+-- 仪表盘
 CREATE TABLE IF NOT EXISTS dashboard (
     id varchar(31) NOT NULL CONSTRAINT dashboard_pkey PRIMARY KEY,
     configuration varchar(10000000),
@@ -111,6 +116,7 @@ CREATE TABLE IF NOT EXISTS dashboard (
     title varchar(255)
 );
 
+-- 设备
 CREATE TABLE IF NOT EXISTS device (
     id varchar(31) NOT NULL CONSTRAINT device_pkey PRIMARY KEY,
     additional_info varchar,
@@ -121,6 +127,7 @@ CREATE TABLE IF NOT EXISTS device (
     tenant_id varchar(31)
 );
 
+-- 设备证书
 CREATE TABLE IF NOT EXISTS device_credentials (
     id varchar(31) NOT NULL CONSTRAINT device_credentials_pkey PRIMARY KEY,
     credentials_id varchar,
@@ -129,9 +136,10 @@ CREATE TABLE IF NOT EXISTS device_credentials (
     device_id varchar(31)
 );
 
+-- 事件
 CREATE TABLE IF NOT EXISTS event (
     id varchar(31) NOT NULL CONSTRAINT event_pkey PRIMARY KEY,
-    body varchar,
+    body varchar,           -- json格式
     entity_id varchar(31),
     entity_type varchar(255),
     event_type varchar(255),
@@ -140,6 +148,7 @@ CREATE TABLE IF NOT EXISTS event (
     CONSTRAINT event_unq_key UNIQUE (tenant_id, entity_type, entity_id, event_type, event_uid)
 );
 
+-- 关系
 CREATE TABLE IF NOT EXISTS relation (
     from_id varchar(31),
     from_type varchar(255),
@@ -179,6 +188,7 @@ CREATE TABLE IF NOT EXISTS tenant (
     zip varchar(255)
 );
 
+-- 用户证书
 CREATE TABLE IF NOT EXISTS user_credentials (
     id varchar(31) NOT NULL CONSTRAINT user_credentials_pkey PRIMARY KEY,
     activate_token varchar(255) UNIQUE,
@@ -205,10 +215,11 @@ CREATE TABLE IF NOT EXISTS widgets_bundle (
     title varchar(255)
 );
 
+-- 规则链
 CREATE TABLE IF NOT EXISTS rule_chain (
     id varchar(31) NOT NULL CONSTRAINT rule_chain_pkey PRIMARY KEY,
     additional_info varchar,
-    configuration varchar(10000000),
+    configuration varchar(10000000), -- json格式
     name varchar(255),
     first_rule_node_id varchar(31),
     root boolean,
