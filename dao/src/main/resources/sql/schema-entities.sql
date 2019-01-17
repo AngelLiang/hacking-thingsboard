@@ -21,6 +21,7 @@ CREATE TABLE IF NOT EXISTS admin_settings (
     key varchar(255)
 );
 
+-- 警告
 CREATE TABLE IF NOT EXISTS alarm (
     id varchar(31) NOT NULL CONSTRAINT alarm_pkey PRIMARY KEY,
     ack_ts bigint,
@@ -119,12 +120,12 @@ CREATE TABLE IF NOT EXISTS dashboard (
 -- 设备
 CREATE TABLE IF NOT EXISTS device (
     id varchar(31) NOT NULL CONSTRAINT device_pkey PRIMARY KEY,
-    additional_info varchar,
-    customer_id varchar(31),
-    type varchar(255),
-    name varchar(255),
+    additional_info varchar,    -- 额外的信息，json
+    customer_id varchar(31),    -- 客户id
+    type varchar(255),          -- 设备类型
+    name varchar(255),          -- 设备名称
     search_text varchar(255),
-    tenant_id varchar(31)
+    tenant_id varchar(31)       -- 租户id
 );
 
 -- 设备证书
@@ -172,6 +173,7 @@ CREATE TABLE IF NOT EXISTS tb_user (
     tenant_id varchar(31)
 );
 
+-- 租户
 CREATE TABLE IF NOT EXISTS tenant (
     id varchar(31) NOT NULL CONSTRAINT tenant_pkey PRIMARY KEY,
     additional_info varchar,
