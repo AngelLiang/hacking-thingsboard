@@ -27,12 +27,12 @@ CREATE TABLE IF NOT EXISTS alarm (
     ack_ts bigint,
     clear_ts bigint,
     additional_info varchar,    -- 存储额外信息，json格式
-    end_ts bigint,
+    end_ts bigint,              -- 结束时间戳
     originator_id varchar(31),
     originator_type integer,
     propagate boolean,
     severity varchar(255),
-    start_ts bigint,
+    start_ts bigint,            -- 开始时间戳
     status varchar(255),
     tenant_id varchar(31),
     type varchar(255)
@@ -113,8 +113,8 @@ CREATE TABLE IF NOT EXISTS dashboard (
     configuration varchar(10000000),
     assigned_customers varchar(1000000),
     search_text varchar(255),
-    tenant_id varchar(31),
-    title varchar(255)
+    tenant_id varchar(31),      -- 租户id
+    title varchar(255)          -- 名称
 );
 
 -- 设备
@@ -140,12 +140,12 @@ CREATE TABLE IF NOT EXISTS device_credentials (
 -- 事件
 CREATE TABLE IF NOT EXISTS event (
     id varchar(31) NOT NULL CONSTRAINT event_pkey PRIMARY KEY,
-    body varchar,           -- json格式
+    body varchar,               -- json格式
     entity_id varchar(31),
     entity_type varchar(255),
-    event_type varchar(255),
-    event_uid varchar(255),
-    tenant_id varchar(31),
+    event_type varchar(255),    -- 事件类型
+    event_uid varchar(255),     -- 事件uid
+    tenant_id varchar(31),      -- 租户id
     CONSTRAINT event_unq_key UNIQUE (tenant_id, entity_type, entity_id, event_type, event_uid)
 );
 
@@ -221,22 +221,23 @@ CREATE TABLE IF NOT EXISTS widgets_bundle (
 CREATE TABLE IF NOT EXISTS rule_chain (
     id varchar(31) NOT NULL CONSTRAINT rule_chain_pkey PRIMARY KEY,
     additional_info varchar,
-    configuration varchar(10000000), -- json格式
-    name varchar(255),
+    configuration varchar(10000000),    -- json格式
+    name varchar(255),                  -- 规则名称
     first_rule_node_id varchar(31),
-    root boolean,
-    debug_mode boolean,
+    root boolean,                       -- 是否为根
+    debug_mode boolean,                 -- 调试模式
     search_text varchar(255),
-    tenant_id varchar(31)
+    tenant_id varchar(31)               -- 租户id
 );
 
+-- 规则节点
 CREATE TABLE IF NOT EXISTS rule_node (
     id varchar(31) NOT NULL CONSTRAINT rule_node_pkey PRIMARY KEY,
     rule_chain_id varchar(31),
     additional_info varchar,
-    configuration varchar(10000000),
+    configuration varchar(10000000),    -- 配置
     type varchar(255),
-    name varchar(255),
+    name varchar(255),                  -- 规则节点名称
     debug_mode boolean,
     search_text varchar(255)
 );
