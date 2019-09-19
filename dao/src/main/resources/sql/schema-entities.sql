@@ -52,17 +52,17 @@ CREATE TABLE IF NOT EXISTS asset (
 -- 审计日志
 CREATE TABLE IF NOT EXISTS audit_log (
     id varchar(31) NOT NULL CONSTRAINT audit_log_pkey PRIMARY KEY,
-    tenant_id varchar(31),
-    customer_id varchar(31),
-    entity_id varchar(31),
-    entity_type varchar(255),
-    entity_name varchar(255),
-    user_id varchar(31),
-    user_name varchar(255),
-    action_type varchar(255),
-    action_data varchar(1000000),   -- json格式
-    action_status varchar(255),
-    action_failure_details varchar(1000000)
+    tenant_id varchar(31),      -- 租户id
+    customer_id varchar(31),    -- 客户id
+    entity_id varchar(31),      -- 实体id
+    entity_type varchar(255),   -- 实体类型
+    entity_name varchar(255),   -- 实体名称
+    user_id varchar(31),        -- 用户id
+    user_name varchar(255),     -- 用户名称
+    action_type varchar(255),   -- 操作类型
+    action_data varchar(1000000),   -- 操作数据，json格式
+    action_status varchar(255), -- 操作状态
+    action_failure_details varchar(1000000)  -- 操作失败详情
 );
 
 -- 属性键值对
@@ -79,6 +79,7 @@ CREATE TABLE IF NOT EXISTS attribute_kv (
   CONSTRAINT attribute_kv_unq_key UNIQUE (entity_type, entity_id, attribute_type, attribute_key)
 );
 
+-- 组件描述符？
 CREATE TABLE IF NOT EXISTS component_descriptor (
     id varchar(31) NOT NULL CONSTRAINT component_descriptor_pkey PRIMARY KEY,
     actions varchar(255),
@@ -141,8 +142,8 @@ CREATE TABLE IF NOT EXISTS device_credentials (
 CREATE TABLE IF NOT EXISTS event (
     id varchar(31) NOT NULL CONSTRAINT event_pkey PRIMARY KEY,
     body varchar,               -- json格式
-    entity_id varchar(31),
-    entity_type varchar(255),
+    entity_id varchar(31),      -- 实体id
+    entity_type varchar(255),   -- 实体类型
     event_type varchar(255),    -- 事件类型
     event_uid varchar(255),     -- 事件uid
     tenant_id varchar(31),      -- 租户id
