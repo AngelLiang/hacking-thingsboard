@@ -19,24 +19,43 @@ import lombok.Getter;
 
 @Getter
 public enum ActionType {
+    // 添加
     ADDED(false), // log entity
+    // 删除
     DELETED(false), // log string id
+    // 更新
     UPDATED(false), // log entity
+    // 属性更新
     ATTRIBUTES_UPDATED(false), // log attributes/values
+    // 属性删除
     ATTRIBUTES_DELETED(false), // log attributes
+    // timeseries删除
     TIMESERIES_DELETED(false), // log timeseries
+    // 调用rpc
     RPC_CALL(false), // log method and params
+    // 证书更新
     CREDENTIALS_UPDATED(false), // log new credentials
+    // 分配给客户
     ASSIGNED_TO_CUSTOMER(false), // log customer name
+    // 撤销分配客户
     UNASSIGNED_FROM_CUSTOMER(false), // log customer name
+    
+    // 激活
     ACTIVATED(false), // log string id
+    // 废除
     SUSPENDED(false), // log string id
+
+    // 证书读取
     CREDENTIALS_READ(true), // log device id
+    // 属性读取
     ATTRIBUTES_READ(true), // log attributes
+    // 关系
     RELATION_ADD_OR_UPDATE(false),
     RELATION_DELETED(false),
     RELATIONS_DELETED(false),
+    // 警告响应
     ALARM_ACK(false),
+    // 警告清除
     ALARM_CLEAR(false);
 
     private final boolean isRead;

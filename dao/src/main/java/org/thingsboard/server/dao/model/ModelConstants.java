@@ -165,6 +165,7 @@ public class ModelConstants {
     /**
      * Cassandra audit log constants.
      */
+    //  审计日志常量
     public static final String AUDIT_LOG_COLUMN_FAMILY_NAME = "audit_log";
 
     public static final String AUDIT_LOG_BY_ENTITY_ID_CF = "audit_log_by_entity_id";
@@ -311,6 +312,7 @@ public class ModelConstants {
     /**
      * Cassandra event constants.
      */
+    //  事件日志常量
     public static final String EVENT_COLUMN_FAMILY_NAME = "event";
     public static final String EVENT_TENANT_ID_PROPERTY = TENANT_ID_PROPERTY;
     public static final String EVENT_TYPE_PROPERTY = "event_type";

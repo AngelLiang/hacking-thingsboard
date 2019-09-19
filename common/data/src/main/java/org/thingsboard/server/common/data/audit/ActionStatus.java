@@ -16,5 +16,6 @@
 package org.thingsboard.server.common.data.audit;
 
 public enum ActionStatus {
+    // 成功 失败
     SUCCESS, FAILURE
 }

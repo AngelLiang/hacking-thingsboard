@@ -19,5 +19,7 @@ package org.thingsboard.server.common.data;
  * @author Andrew Shvayka
  */
 public enum EntityType {
+    // 实体类型
+    // 租户 客户 用户 dashboard 资产 设备 警告 规则链 规则节点 实体视图
     TENANT, CUSTOMER, USER, DASHBOARD, ASSET, DEVICE, ALARM, RULE_CHAIN, RULE_NODE, ENTITY_VIEW
 }
